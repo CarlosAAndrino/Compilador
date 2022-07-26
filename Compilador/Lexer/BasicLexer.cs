@@ -2,12 +2,14 @@ namespace VerySimpleInterpreter.Lexer
 {
     public class BasicLexer
     {
+        public Int32 Line{get;protected set;}
+        public Int32 Column{get;protected set;}
 
         public string Filename {get; protected set;}
         public SymbolTable SymbolTable {get; protected set;}
         
         private char? _peek;
-        private StreamReader _reader;            
+        private StreamReader _reader;     
 
         public BasicLexer(string filename, SymbolTable? st = null) 
         {
@@ -16,6 +18,7 @@ namespace VerySimpleInterpreter.Lexer
                 st = new SymbolTable();
             SymbolTable = st;
             _reader = new StreamReader(Filename);
+            Column = Line = 0;
         }
 
         public Token GetNextToken()
@@ -38,7 +41,7 @@ namespace VerySimpleInterpreter.Lexer
                 case '(': _peek = null; return new Token(ETokenType.OE);
                 case ')': _peek = null; return new Token(ETokenType.CE);
                 case '=': _peek = null; return new Token(ETokenType.AT);
-                case '\n':_peek = null; return new Token(ETokenType.EOL);                
+                case '\n':_peek = null; Column = 0; Line++; return new Token(ETokenType.EOL);                
             }
 
             if (_peek == '$')  //$[a-z]+
@@ -46,25 +49,34 @@ namespace VerySimpleInterpreter.Lexer
                 var varName = "";                
                 do {
                     _peek = NextChar();
+                    if(Char.IsLetter(_peek.Value))
                     varName += _peek;
-                    //Console.WriteLine(_peek);
-                } while (_peek.HasValue && Char.IsLetter(_peek.Value));
-                SymbolTable.Put(varName);
-                return new Token(ETokenType.VAR);//retornar o indice
+                } while (Char.IsLetter(_peek.Value));
+                var key = SymbolTable.Put(varName);
+                return new Token(ETokenType.VAR, key);
             }
 
             if (_peek == 'r')  //'read'
             {
                 if (testSufix("ead"))
                     return new Token(ETokenType.INPUT);
-                //else
-                    //error
+                else
+                {
+                    Error();
+                }
+                    
             }
 
             if (_peek == 'w')  //'write'
             {
                 if (testSufix("rite"))
+                {
                     return new Token(ETokenType.OUTPUT);
+                }
+                else
+                {
+                    Error();
+                }
             }
             if (Char.IsDigit(_peek.Value))  //[0-9]+
             {
@@ -76,15 +88,14 @@ namespace VerySimpleInterpreter.Lexer
                 return new Token(ETokenType.NUM, value);
             }        
             
-            return new Token(ETokenType.EOF);
+            return new Token(ETokenType.ERR);
         }
 
         public char? NextChar()
         {
-            char? c = null;
+            char c = '\0';
             if (!_reader.EndOfStream)
-                c =  (char?) _reader.Read();
-            //Console.WriteLine(c);
+                c =  (Char) _reader.Read();
             return c;
         }
 
@@ -116,5 +127,9 @@ namespace VerySimpleInterpreter.Lexer
             return 0;
         }
 
+        public void Error()
+        {
+            Console.WriteLine("Deu ruim...");
+        }
     }
 }

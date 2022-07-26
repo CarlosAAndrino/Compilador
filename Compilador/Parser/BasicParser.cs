@@ -21,7 +21,7 @@ namespace VerySimpleInterpreter.Parser
 
         public void Error()
         {
-            Console.WriteLine("Lascou...");
+            Console.WriteLine("Deu ruim familia...");
         }
 
         public void Input() //INPUT VAR

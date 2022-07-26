@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\carlo\\.nuget\\packages\\": {}
+    "D:\\Users\\cc46866322855\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\carlo\\Desktop\\Programação\\Códigos\\Compilador\\very-simple-interpreter.csproj",
+      "projectUniqueName": "D:\\Users\\cc46866322855\\Desktop\\Compilador\\very-simple-interpreter.csproj",
       "projectName": "very-simple-interpreter",
-      "projectPath": "C:\\Users\\carlo\\Desktop\\Programação\\Códigos\\Compilador\\very-simple-interpreter.csproj",
-      "packagesPath": "C:\\Users\\carlo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\carlo\\Desktop\\Programação\\Códigos\\Compilador\\obj\\",
+      "projectPath": "D:\\Users\\cc46866322855\\Desktop\\Compilador\\very-simple-interpreter.csproj",
+      "packagesPath": "D:\\Users\\cc46866322855\\.nuget\\packages\\",
+      "outputPath": "D:\\Users\\cc46866322855\\Desktop\\Compilador\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\carlo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "D:\\Users\\cc46866322855\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
